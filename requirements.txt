@@ -1,0 +1,7 @@
+#  pip install -r requirements.txt
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+tensorflow

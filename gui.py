@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 from predict_data import predict_data
+from data_splitting import scale_data
 from sklearn.preprocessing import StandardScaler
 from tensorflow.keras.models import load_model
 
@@ -38,13 +39,12 @@ layout = [
 # Create the window
 window = sg.Window('Diabetes Prediction Using ANN', layout)
 
+#load the model
+ann = load_model('ann_model.h5')
+
 # Event loop
 while True:
-    event, values = window.read()
-
-    stand = StandardScaler()
-    #load the model
-    ann = load_model('ann_model.h5') 
+    event, values = window.read() 
 
     if event == sg.WINDOW_CLOSED:
         break
@@ -92,7 +92,7 @@ while True:
             selected_blood_glucose = int(values['-blood_glucose-'])
             
             # Create a person
-            person = stand.fit_transform([[selected_gender, selected_age, selected_hypertension, selected_heart_disease, selected_smoking_history, selected_bmi, selected_hbA1c_level, selected_blood_glucose]])
+            person = scale_data([[selected_gender, selected_age, selected_hypertension, selected_heart_disease, selected_smoking_history, selected_bmi, selected_hbA1c_level, selected_blood_glucose]])
 
             # predict the person
             result = ann.predict(person)

@@ -10,7 +10,7 @@ ann.add(tf.keras.layers.Dense(units = 8, activation = 'relu'))
 ann.add(tf.keras.layers.Dense(units = 6, activation = 'relu'))
 ann.add(tf.keras.layers.Dense(units = 1, activation = 'sigmoid'))
 
-optimizer = tf.keras.optimizers.Adam(learning_rate=0.01)
+optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
 ann.compile(optimizer = optimizer, loss = 'binary_crossentropy', metrics = ['accuracy'])
 
 early_stop = EarlyStopping(monitor='val_loss', patience=3)

@@ -2,6 +2,13 @@ from data_cleaning import data
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 
+# function to scale the data
+def scale_data(X_data):
+    stand = preprocessing.StandardScaler()
+    temp = stand.fit_transform(X_data)
+    return temp
+
+
 def main():
     # print the shape of train, test, and validation sets
     print('train shape: ', X_train.shape)
@@ -20,8 +27,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random
 
 # scaling data
 stand = preprocessing.StandardScaler()
-X_train = stand.fit_transform(X_train)
-X_test = stand.transform(X_test)
+X_train = scale_data(X_train)
+X_test = scale_data(X_test)
 
 # print main
 if __name__ == "__main__":

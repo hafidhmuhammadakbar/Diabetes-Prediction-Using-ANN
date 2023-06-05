@@ -1,6 +1,5 @@
 import PySimpleGUI as sg
-from predict_data import predict_data
-from tensorflow.keras.models import load_model
+from data_splitting import predict_data
 
 # Define the layout of the window
 sg.theme("Reddit")
@@ -36,9 +35,6 @@ layout = [
 
 # Create the window
 window = sg.Window('Diabetes Prediction Using ANN', layout)
-
-#load the model
-ann = load_model('ann_model.h5')
 
 # Event loop
 while True:
@@ -90,9 +86,7 @@ while True:
             # Create a person
             person = [[selected_gender, selected_age, selected_hypertension, selected_heart_disease, selected_smoking_history, selected_bmi, selected_hbA1c_level, selected_blood_glucose]]
 
-            # predict the person
-            result = ann.predict(person)
-            result = predict_data(result)
+            result = predict_data(person)
 
             sg.popup(f'Results of predictions: {result}')
             # sg.popup(f'Gender : {selected_gender} Age : {selected_age}, Hypertension : {selected_hypertension}, Heart Disease : {selected_heart_disease}, Smoking History : {selected_smoking_history}, BMI : {selected_bmi}, hbA1c Level : {selected_hbA1c_level}, Blood Glucose : {selected_blood_glucose}')

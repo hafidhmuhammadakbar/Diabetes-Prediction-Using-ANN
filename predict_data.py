@@ -1,19 +1,12 @@
-from tensorflow.keras.models import load_model
-
-# function to predict
-def predict_data(result):
-    if result >= 0.5:
-        return "Diabetes"
-    else:
-        return "No Diabetes"
+from data_splitting import predict_data
 
 def main():
-    person_X = [[0,80, 1, 0, -1, 27.32, 8, 200]]
-    result = ann.predict(person_X)
-    print(predict_data(result))
-
-# load the model
-ann = load_model('ann_model.h5')
+    # non-diabetes
+    person_X1 = [[0, 50, 0, 0, 2, 25, 5, 100]]
+    # diabetes
+    person_X2 = [[0, 50, 1, 1, 2, 30, 10, 300]]
+    print(predict_data(person_X1))
+    print(predict_data(person_X2))
 
 # print main
 if __name__ == "__main__":

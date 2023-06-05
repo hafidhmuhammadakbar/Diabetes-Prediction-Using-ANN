@@ -19,6 +19,11 @@ def delete_gender_other(data):
     data = data[data['gender'] != 'Other']
     return data
 
+# delete row with value 'no info' in smoking_history column
+def delete_smoking_history_no_info(data):
+    data = data[data['smoking_history'] != 'No Info']
+    return data
+
 # function to Label Encoding for gender column
 # female = 0, male = 1
 def encode_gender(data):
@@ -27,10 +32,9 @@ def encode_gender(data):
     return data
 
 # function to label encoding for smoking_history column
-# 'never': 0, 'No Info': -1, 'current': 2, 'former': 1, 'ever': 2, 'not current': 0
+# 'never': 0, 'current': 2, 'former': 1, 'ever': 2, 'not current': 0
 def encode_smoking_history(data):
     data['smoking_history'] = data['smoking_history'].replace('never', 0)
-    data['smoking_history'] = data['smoking_history'].replace('No Info', -1)
     data['smoking_history'] = data['smoking_history'].replace('current', 2)
     data['smoking_history'] = data['smoking_history'].replace('former', 1)
     data['smoking_history'] = data['smoking_history'].replace('ever', 2)
@@ -70,6 +74,9 @@ data = delete_duplicate_rows(data)
 
 # delete rows with gender other
 data = delete_gender_other(data)
+
+# delete rows with smoking_history no info
+data = delete_smoking_history_no_info(data)
 
 # encode gender column
 data = encode_gender(data)

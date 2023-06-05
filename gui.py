@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from data_splitting import predict_data
 
 # Define the layout of the window
-sg.theme("Reddit")
+sg.theme("DarkBlue1")
 layout = [
     [sg.T("Diabetes Prediction Using ANN", font="Any 20")],
     # gender

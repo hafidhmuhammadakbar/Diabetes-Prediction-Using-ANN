@@ -1,7 +1,5 @@
 import PySimpleGUI as sg
 from predict_data import predict_data
-from data_splitting import scale_data
-from sklearn.preprocessing import StandardScaler
 from tensorflow.keras.models import load_model
 
 # Define the layout of the window
@@ -22,7 +20,7 @@ layout = [
     [sg.Combo(['Yes', 'No'], key='-heart_disease-', enable_events=True)],
     # smoking_history
     [sg.Text('What is your smoking history?')],
-    [sg.Combo(['No info', 'Never', 'Former', 'Current'], key='-smoking_history-', enable_events=True)],
+    [sg.Combo(['Never', 'Former', 'Current'], key='-smoking_history-', enable_events=True)],
     # bmi
     [sg.Text('Enter your BMI:')],
     [sg.InputText(key='-bmi-', enable_events=True)],
@@ -76,9 +74,7 @@ while True:
                 selected_heart_disease = 0
             
             selected_smoking_history = values['-smoking_history-']
-            if selected_smoking_history == 'No info':
-                selected_smoking_history = -1
-            elif selected_smoking_history == 'Never':
+            if selected_smoking_history == 'Never':
                 selected_smoking_history = 0
             elif selected_smoking_history == 'Former':
                 selected_smoking_history = 1
@@ -92,21 +88,11 @@ while True:
             selected_blood_glucose = int(values['-blood_glucose-'])
             
             # Create a person
-            person = scale_data([[selected_gender, selected_age, selected_hypertension, selected_heart_disease, selected_smoking_history, selected_bmi, selected_hbA1c_level, selected_blood_glucose]])
+            person = [[selected_gender, selected_age, selected_hypertension, selected_heart_disease, selected_smoking_history, selected_bmi, selected_hbA1c_level, selected_blood_glucose]]
 
             # predict the person
             result = ann.predict(person)
             result = predict_data(result)
-
-            # # know type data of all input values
-            # print(type(selected_gender))
-            # print(type(selected_age))
-            # print(type(selected_hypertension))
-            # print(type(selected_heart_disease))
-            # print(type(selected_smoking_history))
-            # print(type(selected_bmi))
-            # print(type(selected_hbA1c_level))
-            # print(type(selected_blood_glucose))
 
             sg.popup(f'Results of predictions: {result}')
             # sg.popup(f'Gender : {selected_gender} Age : {selected_age}, Hypertension : {selected_hypertension}, Heart Disease : {selected_heart_disease}, Smoking History : {selected_smoking_history}, BMI : {selected_bmi}, hbA1c Level : {selected_hbA1c_level}, Blood Glucose : {selected_blood_glucose}')

@@ -36,7 +36,7 @@ X_test = stand.transform(X_test)
 
 # print main
 if __name__ == "__main__":
-    # main()
+    main()
     # diabetes
-    person_X = [[0, 50, 1, 1, 2, 30, 10, 300]]  
-    print(predict_data(person_X))
+    # person_X = [[0, 50, 1, 1, 2, 30, 10, 300]]  
+    # print(predict_data(person_X))
